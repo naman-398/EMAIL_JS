@@ -8,6 +8,11 @@ export const Mydata = () => {
         username: "",
         message: ""
     });
+    const [errors, setErrors] = useState({
+        name: "",
+        username: "",
+        message: ""
+    });
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -20,18 +25,51 @@ export const Mydata = () => {
     const sendEmail = (e) => {
         e.preventDefault();
 
-        emailjs
-            .sendForm("service_k8l86ig", "template_7k57vgi", form.current, {
-                publicKey: "_TOKdjfGgbKO-yKBH",
-            })
-            .then(
-                () => {
-                    console.log("SUCCESS!");
-                },
-                (error) => {
-                    console.log("FAILED...", error.text);
-                }
-            );
+        let isValid = true;
+        const newErrors = { ...errors };
+
+        if (!formData.name) {
+            newErrors.name = "Name is required !!";
+            isValid = false;
+        } else {
+            newErrors.name = "";
+        }
+
+        if (!formData.username) {
+            newErrors.username = "Email is required !!";
+            isValid = false;
+        } else {
+            newErrors.username = "";
+        }
+
+        if (!formData.message) {
+            newErrors.message = "Message is required !!";
+            isValid = false;
+        } else {
+            newErrors.message = "";
+        }
+
+        setErrors(newErrors);
+
+        if (isValid) {
+            emailjs
+                .sendForm("service_k8l86ig", "template_7k57vgi", form.current, {
+                    publicKey: "_TOKdjfGgbKO-yKBH",
+                })
+                .then(
+                    () => {
+                        console.log("SUCCESS!");
+                        setFormData({
+                            name: "",
+                            username: "",
+                            message: ""
+                        })
+                    },
+                    (error) => {
+                        console.log("FAILED...", error.text);
+                    }
+                );
+        }
     };
 
     return (
@@ -40,15 +78,18 @@ export const Mydata = () => {
                 <form ref={form} className="d-flex flex-column gap-2 mx-auto" onSubmit={sendEmail}>
                     <div className="d-flex flex-column">
                         <label className="text">Name :</label>
-                        <input className=" inpt" type="text" name="name" value={formData.name} onChange={handleInputChange} />
+                        <input className="inpt" type="text" name="name" value={formData.name} onChange={handleInputChange} />
+                        <div className="error text-danger">{errors.name}</div>
                     </div>
                     <div className="d-flex flex-column">
                         <label className="text">Email :</label>
-                        <input className=" inpt" type="email" name="username" value={formData.username} onChange={handleInputChange} />
+                        <input className="inpt" type="email" name="username" value={formData.username} onChange={handleInputChange} />
+                        <div className="error  text-danger">{errors.username}</div>
                     </div>
                     <div className="d-flex flex-column">
                         <label className="text">Message :</label>
                         <textarea name="message" className="textarea" value={formData.message} onChange={handleInputChange} />
+                        <div className="error  text-danger">{errors.message}</div>
                     </div>
                     <input className="bttn" type="submit" value="Send" />
                 </form>
