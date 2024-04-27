@@ -4,12 +4,14 @@ import emailjs from "@emailjs/browser";
 export const Mydata = () => {
     const form = useRef();
     const [formData, setFormData] = useState({
-        name: "",
+        firstname: "",
+        lastname: "",
         username: "",
         message: ""
     });
     const [errors, setErrors] = useState({
-        name: "",
+        firstname: "",
+        lastname: "",
         username: "",
         message: ""
     });
@@ -28,11 +30,18 @@ export const Mydata = () => {
         let isValid = true;
         const newErrors = { ...errors };
 
-        if (!formData.name) {
-            newErrors.name = "Name is required !!";
+        if (!formData.firstname) {
+            newErrors.firstname = "First name is required !!";
             isValid = false;
         } else {
-            newErrors.name = "";
+            newErrors.firstname = "";
+        }
+
+        if (!formData.lastname) {
+            newErrors.lastname = "Last name is required !!";
+            isValid = false;
+        } else {
+            newErrors.lastname = "";
         }
 
         if (!formData.username) {
@@ -60,7 +69,8 @@ export const Mydata = () => {
                     () => {
                         console.log("SUCCESS!");
                         setFormData({
-                            name: "",
+                            firstname: "",
+                            lastname: "",
                             username: "",
                             message: ""
                         })
@@ -73,22 +83,24 @@ export const Mydata = () => {
     };
 
     return (
-        <div className="min-vh-100 align-items-center justify-content-center d-flex">
+        <div className="min-vh-100 align-items-center justify-content-center flex-column d-flex bg-img gap-4">
+            <h1 className=" h1-line">EMAIL JS</h1>
             <div className="d-flex flex-column formbox h-100 w-100">
                 <form ref={form} className="d-flex flex-column gap-2 mx-auto" onSubmit={sendEmail}>
                     <div className="d-flex flex-column">
-                        <label className="text">Name :</label>
-                        <input className="inpt" type="text" name="name" value={formData.name} onChange={handleInputChange} />
-                        <div className="error text-danger">{errors.name}</div>
+                        <input className="inpt" type="text" name="firstname" placeholder="First name" value={formData.firstname} onChange={handleInputChange} />
+                        <div className="error text-danger">{errors.firstname}</div>
                     </div>
                     <div className="d-flex flex-column">
-                        <label className="text">Email :</label>
-                        <input className="inpt" type="email" name="username" value={formData.username} onChange={handleInputChange} />
+                        <input className="inpt" type="text" name="lastname" placeholder="Last name" value={formData.lastname} onChange={handleInputChange} />
+                        <div className="error text-danger">{errors.lastname}</div>
+                    </div>
+                    <div className="d-flex flex-column ">
+                        <input className="inpt" type="email" name="username" placeholder="Email" value={formData.username} onChange={handleInputChange} />
                         <div className="error  text-danger">{errors.username}</div>
                     </div>
                     <div className="d-flex flex-column">
-                        <label className="text">Message :</label>
-                        <textarea name="message" className="textarea" value={formData.message} onChange={handleInputChange} />
+                        <textarea name="message" className="textarea" placeholder="Message" value={formData.message} onChange={handleInputChange} />
                         <div className="error  text-danger">{errors.message}</div>
                     </div>
                     <input className="bttn" type="submit" value="Send" />

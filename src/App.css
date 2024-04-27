@@ -1,25 +1,55 @@
-.textarea{
+.textarea {
   resize: none;
   height: 150px;
-  width: 310px;
+  width: 370px;
+  padding: 13px 16px;
+  border: 1.5px solid #e4eaf7;
+  border-radius: 6px;
+  background-color: #f5f8ff;
 }
-.bttn{
+textarea:focus,
+input:focus{
+outline: 1px solid #95a4c6; 
+}
+.bg-img {
+  background-image: url(../src/images/Sign\ in.png);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.bttn {
   font-size: 14px;
-  padding: 10px 25px;
-  border: 1px solid black;
-  border-radius: 10px;
+  padding: 14px 25px;
+  border-radius: 50px;
+  border: unset;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+ background: linear-gradient(
+  90deg,
+  rgba(33, 148, 255, 1) 0%,
+  rgba(37, 99, 235, 1) 100%
+);
 }
-.text{
+
+.text {
   font-size: 20px;
   font-weight: 500;
 }
-.formbox{
-  border: 1.5px solid black;
-border-radius: 15px;
-padding: 15px;
-max-width: 350px;
+::placeholder {
+  font-size: 14px;
+  font-weight: 500;
 }
-.inpt{
-  width: 310px;
+.inpt {
+  width: 370px;
   height: 40px;
+  padding: 13px 16px;
+  border: 1.5px solid #e4eaf7;
+  border-radius: 6px;
+  background-color: #f5f8ff;
+}
+.h1-line {
+  font-size: 35px;
+  font-weight: 700;
+  color: #000;
 }
